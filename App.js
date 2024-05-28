@@ -1,5 +1,7 @@
 import React from 'react';
-import Started from './page/Started'; // Import Splash Screen component
+import Started from './screens/Started';
+// Import Splash Screen component
+
 
 const App = () => {
   return <Started />;

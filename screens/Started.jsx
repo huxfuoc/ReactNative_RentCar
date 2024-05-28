@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Image, Text, StyleSheet, TouchableOpacity, Animated, Dimensions } from 'react-native';
 import { useFonts } from 'expo-font';
-
-const { width } = Dimensions.get('screen');
+import { useRouter } from 'expo-router';
 
 const SplashScreen = () => {
+    const router = useRouter();
     const translateX = useRef(new Animated.Value(0)).current;
     const [fontsLoaded] = useFonts({
         'Inconsolata': require('../assets/fonts/Inconsolata.ttf'),
@@ -58,7 +58,7 @@ const SplashScreen = () => {
                     <Text style={styles.introduceText}>Best Company</Text>
                 </View>
             </View>
-            <TouchableOpacity style={styles.getStartedButton} onPress={() => { }}>
+            <TouchableOpacity style={styles.getStartedButton} onPress={() => { router.push('/login') }}>
                 <Text style={styles.getStartedButtonText}>Get Started</Text>
                 <Animated.View style={{ transform: [{ translateX }] }}>
                     <Image
