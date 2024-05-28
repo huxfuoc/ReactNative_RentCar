@@ -10,6 +10,7 @@ const SplashScreen = () => {
     const extraPadding = Platform.OS === 'android' || Platform.OS === 'ios' ? statusBarHeight : 0;
     const translateX = useRef(new Animated.Value(0)).current;
     const fadeAnim = useRef(new Animated.Value(1)).current;
+    const slideAnim = useRef(new Animated.Value(0)).current;
 
     const [fontsLoaded] = useFonts({
         'Inconsolata': require('../assets/fonts/Inconsolata.ttf'),
@@ -40,12 +41,12 @@ const SplashScreen = () => {
     }, [translateX, fontsLoaded]);
 
     const handleGetStarted = () => {
-        Animated.timing(fadeAnim, {
-            toValue: 0,
-            duration: 500,
+        Animated.timing(slideAnim, {
+            toValue: -Dimensions.get('window').width, // Dịch chuyển màn hình sang trái
+            duration: 300, // Thời gian hiệu ứng
             useNativeDriver: true,
         }).start(() => {
-            router.push('/login');
+            router.push('/login'); // Điều hướng sau khi hoạt ảnh kết thúc
         });
     };
 
@@ -57,7 +58,7 @@ const SplashScreen = () => {
     const screenHeight = Dimensions.get("window").height;
 
     return (
-        <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+        <Animated.View style={[styles.container, { transform: [{ translateX: slideAnim }] }]}>
             <StatusBar backgroundColor="transparent" />
             <ImageBackground
                 style={[styles.image, { width: screenWidth, height: screenHeight + extraPadding + 100 }]}
